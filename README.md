@@ -10,6 +10,9 @@ We currently have two implementations:
 - **KGramAndInvertedIndexingImpl**:
   - Uses K-Gram tokenization for substring search with max substring length of 10
   - Implements an in-memory inverted index for fast lookups
+- **HybridImpl**:
+  - Combines both partial tokenization and K-Gram indexing for maximum flexibility
+  - Uses an in-memory inverted index for fast lookups
 
 ---
 

@@ -95,6 +95,8 @@ public class KGramTokenizationImpl implements AddressBook {
         return requests.stream().map(req -> {
             ContactCard old = contactMap.get(req.getId());
             if (old == null) return null;
+            Utils.updateContactDetails(old, req);
+            req = old;
             unindexCard(old);
             old.setName(req.getName());
             old.setEmail(req.getEmail());
