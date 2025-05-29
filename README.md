@@ -59,5 +59,10 @@ We currently have three implementations:
 ./mvnw clean install -DskipTests
 ./mvnw quarkus:dev
 
+```
 
-![image](https://github.com/user-attachments/assets/442b9b6e-2cb6-4e51-91f0-3528e0fe1597)
+---
+
+## FLOW-CHART
+
+![image](https://github.com/user-attachments/assets/27968532-0982-4fff-b0d4-1bc21e1bdca9)
