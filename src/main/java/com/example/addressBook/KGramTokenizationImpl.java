@@ -8,6 +8,8 @@ import com.example.utils.Utils;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import static com.example.utils.Utils.getNGrams;
+import static com.example.utils.Utils.tokenize;
 
 
 public class KGramTokenizationImpl implements AddressBook {
@@ -31,7 +33,6 @@ public class KGramTokenizationImpl implements AddressBook {
                     .email(req.getEmail())
                     .phone(req.getPhone())
                     .build();
-
             contactMap.put(id, card);
             indexCard(card);
             return card;
@@ -41,7 +42,6 @@ public class KGramTokenizationImpl implements AddressBook {
     @Override
     public List<ContactCard> find(FetchRequest request) {
         String query = request.getQuery();
-
         Set<String> ngramMatches = null;
         for (int k : NGRAM_SIZES) {
             for (String gram : getNGrams(query, k)) {
@@ -167,24 +167,5 @@ public class KGramTokenizationImpl implements AddressBook {
                 if (ids.isEmpty()) tokenIndex.remove(token);
             }
         }
-    }
-
-    // ---------- Utility ----------
-
-    private List<String> getNGrams(String input, int k) {
-        if (input == null || input.length() < k) return List.of();
-        List<String> ngrams = new ArrayList<>();
-        for (int i = 0; i <= input.length() - k; i++) {
-            ngrams.add(input.substring(i, i + k));
-        }
-        return ngrams;
-    }
-
-    private List<String> tokenize(String input) {
-        if (input == null) return List.of();
-        return Arrays.stream(input.split("[@._\\-\\s,]+"))
-                .filter(s -> !s.isBlank())
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
     }
 }

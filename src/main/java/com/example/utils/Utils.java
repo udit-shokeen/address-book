@@ -2,10 +2,8 @@ package com.example.utils;
 
 import com.example.dto.ContactCard;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Utils {
     public static String generateId() {
@@ -30,5 +28,22 @@ public class Utils {
             contactCard.setEmail(request.getEmail());
         if(Objects.nonNull(request.getPhone()))
             contactCard.setPhone(request.getPhone());
+    }
+
+    public static List<String> getNGrams(String input, int k) {
+        if (input == null || input.length() < k) return List.of();
+        List<String> ngrams = new ArrayList<>();
+        for (int i = 0; i <= input.length() - k; i++) {
+            ngrams.add(input.substring(i, i + k));
+        }
+        return ngrams;
+    }
+
+    public static List<String> tokenize(String input) {
+        if (input == null) return List.of();
+        return Arrays.stream(input.split("[@._\\-\\s,]+"))
+                .filter(s -> !s.isBlank())
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
     }
 }
