@@ -8,13 +8,17 @@ import com.example.dto.DeletedResponse;
 import com.example.dto.FetchRequest;
 import com.example.enums.AddressBookImplType;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import java.util.List;
 
 
 @ApplicationScoped
 public class AddressBookAdapter {
-    public AddressBook getAddressBook() {
-        AddressBookImplType config = AddressBookImplType.FULL_TOKENIZATION;
+    @ConfigProperty(name = "address.book.implementation.type")
+    String configString;
+
+    private AddressBook getAddressBook() {
+        AddressBookImplType config = AddressBookImplType.getType(configString);
         return AddressBookFactory.getAddressBookImpl(config);
     }
 

@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
 
+
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -21,20 +22,8 @@ public class Controller {
     @POST
     @Path("/create")
     public Response addContacts(List<AddContactRequest> requests) {
-        try {
-            List<ContactCard> added = addressBookAdapter.insert(requests);
-            return Response.status(Response.Status.CREATED).entity(added).build();
-        }
-        catch (IllegalArgumentException e) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Invalid input: " + e.getMessage())
-                    .build();
-        }
-        catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("An error occurred while adding contacts: " + e.getMessage())
-                    .build();
-        }
+        List<ContactCard> added = addressBookAdapter.insert(requests);
+        return Response.status(Response.Status.CREATED).entity(added).build();
     }
 
     @POST
