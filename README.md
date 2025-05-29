@@ -3,7 +3,7 @@
 A high-performance, full-text searchable **Address Book service** built with [Quarkus](https://quarkus.io/).  
 It supports inserting, querying, updating, and deleting contacts via REST endpoints — with **substring-based search** using an inverted index.
 
-We currently have two implementations:
+We currently have three implementations:
 - **FullTokenizationImpl**:
   - Uses a full substring search on `name`, `email`, and `phone`
   - Implements an in-memory inverted index for fast lookups
@@ -58,3 +58,6 @@ We currently have two implementations:
 ```bash
 ./mvnw clean install -DskipTests
 ./mvnw quarkus:dev
+
+
+![image](https://github.com/user-attachments/assets/442b9b6e-2cb6-4e51-91f0-3528e0fe1597)
