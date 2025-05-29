@@ -1,62 +1,40 @@
-# lld
+# 📒 Address Book API
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+A high-performance, full-text searchable **Address Book service** built with [Quarkus](https://quarkus.io/).  
+It supports inserting, querying, updating, and deleting contacts via REST endpoints — with **substring-based search** using an inverted index.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+We currently have two implementations:
+- **FullTokenizationImpl**:
+  - Uses a full substring search on `name`, `email`, and `phone`
+  - Implements an in-memory inverted index for fast lookups
+- **KGramAndInvertedIndexingImpl**:
+  - Uses K-Gram tokenization for substring search with max substring length of 10
+  - Implements an in-memory inverted index for fast lookups
 
-## Running the application in dev mode
+---
 
-You can run your application in dev mode that enables live coding using:
+## 🚀 Features
 
-```shell script
+- Full substring search on `name`, `email`, and `phone`
+- Fast in-memory inverted index using all substrings (tokenization)
+- REST API with CRUD operations
+- Fast performance with support for thousands of contacts
+- Quarkus Dev UI support for debugging and live coding
+
+---
+
+| Method   | Endpoint   | Description              |
+| -------- |------------| ------------------------ |
+| `POST`   | `/create`  | Insert multiple contacts |
+| `GET`    | `/search`  | Search contacts by token |
+| `PUT`    | `/update`  | Update contact details   |
+| `DELETE` | `/delete`  | Delete contacts by ID    |
+
+---
+
+## 📦 Running the Application
+### 🔧 Dev Mode (Live Reload)
+
+```bash
+./mvnw clean install -DskipTests
 ./mvnw quarkus:dev
-```
-
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
-
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./mvnw package
-```
-
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/lld-1.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
